@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Share */
+    :root {
+      --gc2021_main: #fcf6de;
+      --gc2021_secondary: #2d6cb8;
+      --gc2021_yellow: #FEE10B;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    #gc2021 {
+      background-color: var(--gc2021_main);
+      padding-bottom: 100px;
+    }
+    #gc2021 .section {
+      position: relative;
+      width: 100%;
+    }
+    #gc2021 .img {
+      width: 100%;
+      object-fit: contain;
+    }
+    #gc2021 .img-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    /* 按鈕 */
+    #gc2021 .btn-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+    #gc2021 .btn {
+      position: relative;
+      width: 14vw;
+      border-radius: 50px;
+      line-height: 5rem;
+      text-align: center;
+      letter-spacing: 2px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      cursor: pointer;
+      background-color: var(--gc2021_secondary);
+      border: 3px solid var(--gc2021_secondary);
+      color: #fff;
+      transition: all 0.3s;
+    }
+    #gc2021 .btn:hover {
+      background-color: var(--gc2021_yellow);
+      color: var(--gc2021_secondary);
+    }
+    #gc2021 .btn-container .lightbulb_off {
+      margin: 5px 20px;
+    }
+    /* 燈泡 */
+    #gc2021 .lightbulb_off {
+      width: 25px;
+      height: 25px;
+      margin: 5px 10px;
+      background: url('https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635346015_910.png') center center no-repeat;
+      background-size: contain;
+    }
+    #gc2021 .lightbulb_on {
+      width: 50px;
+      height: 50px;
+      margin: 5px 10px;
+      background: url('https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635345995_231.png') center center no-repeat;
+      background-size: contain;
+    }
+
+    /* 
+    ** Mask
+    */
+    #gc2021 .mask {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      z-index: 1201;
+      opacity: 1;
+      transition: all 1s;
+      cursor: pointer;
+    }
+    #gc2021 .mask-img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1;
+      z-index: 1200;
+    }
+    #gc2021 .light-off {
+      transition: all 4s;
+      opacity: 1;
+    }
+    #gc2021 .light-on {
+      transition: all 1.5s;
+      opacity: 0;
+    }
+
+    /*
+    ** KV
+    */
+    #gc2021 .kv {
+      margin-bottom: 30px;
+    }
+
+    /*
+    ** 點亮偏鄉計畫
+    */
+    #gc2021 .donate-container {
+      width: 75%;
+      margin: 0 auto 30px;
+      transform: translateX(2%);
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #gc2021 .progressBar-container {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    #gc2021 .lightbulbs-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    #gc2021 .progressBar {
+      position: relative;
+      width: 100%;
+      height: 8px;
+      border-radius: 8px;
+      margin: 10px 0;
+      padding: 1px;
+      overflow: hidden;
+      border: 1px solid var(--gc2021_secondary);
+    }
+    #gc2021 .progressBar-status {
+      position: absolute;
+      width: 8%;
+      border-radius: 8px;
+      height: 85%;
+      background-color: var(--gc2021_secondary);
+    }
+    #gc2021 .progressBar-text {
+      align-self: flex-end;
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      font-weight: 800;
+      color: var(--gc2021_secondary);
+    }
+
+    /*
+    ** 點亮我的家
+    */
+    #gc2021 #section-2 {
+      position: relative;
+    }
+    #gc2021 .video-container {
+      position: relative;
+      display: flex;
+      height: 24vw;
+      margin: 0 auto 100px;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(4%) translateY(14%);
+    }
+    #gc2021 #player {
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--gc2021_secondary);
+      background-color: var(--gc2021_main);
+      padding: 10px;
+    }
+    #gc2021 .video-text {
+      width: 23%;
+    }
+
+    /*
+    ** 捐款募集
+    */
+    #gc2021 .btn2-container {
+      margin-top: 15px;
+      position: relative;
+      width: 100%;
+    }
+
+    /*
+    ** NAV
+    */
+    #gc2021 .nav {
+      width: 15%;
+      position: fixed;
+      left: 0;
+      bottom: 30px;
+      z-index: 9;
+    }
+    #gc2021 .nav-item {
+      width: 80%;
+      padding: 20px 10px;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background-color: var(--gc2021_secondary);
+      margin: 0;
+      margin-bottom: 5px;
+      border: 2px solid var(--gc2021_secondary);
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transform: translateX(-2px);
+    }
+    #gc2021 .nav-item p {
+      margin: 0;
+      width: 80%;
+    }
+    #gc2021 .nav-item:hover {
+      filter: brightness(110%);
+    }
+    #gc2021 .nav-item::after {
+      content: '';
+      width: 0;
+      height: 0;
+      display: inline-block;
+      border-style: solid;
+      border-width: 5px 0 5px 8px;
+      border-color: transparent transparent transparent var(--gc2021_yellow);
+    }
+    #gc2021 .nav-item--active {
+      width: 100%;
+      background-color: var(--gc2021_main);
+      color: var(--gc2021_secondary);
+    }
+    #gc2021 .nav-item--active::after {
+      display: none;
+    }
+    #gc2021 .nav-item .nav-lightbulb-on {
+      width: 35px;
+      height: 35px;
+      margin: 0;
+      object-fit: contain;
+      display: none;
+    }
+    #gc2021 .nav-item--active .nav-lightbulb-on {
+      display: inline-block;
+    }
+
+    /*
+    ** RWD
+    */
+    #gc2021 .rwdShow {
+      display: none;
+    }
+    @media screen and (max-width:992px) {
+      #gc2021 .btn {
+        width: 200px;
+      }
+      #gc2021 .donate-container {
+        flex-direction: column;
+        width: 100%;
+        transform: translateX(0);
+      }
+      #gc2021 .donate-container .progressBar-container {
+        width: 80%;
+        margin-bottom: 15px;
+      }
+      #gc2021 .donate-container .progressBar-text {
+        align-self: center;
+      }
+    }
+    @media screen and (max-width:768px) {
+      #gc2021 .rwdHide {
+        display: none;
+      }
+      #gc2021 .rwdShow {
+        display: block;
+      }
+      #gc2021 .video-container {
+        transform: translateX(0) translateY(70%);
+        height: 40vw;
+        margin: 0 auto 35vw;
+      }
+      #gc2021 #player {
+        width: 60%;
+      }
+      #gc2021 .lightbulb_off {
+        margin: 0 5px;
+      }
+      #gc2021 .lightbulb_on {
+        width: 40px;
+        height: 40px;
+        margin: 0 5px;
+      }
+      #gc2021 .btn-container {
+        width: 80%;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+      #gc2021 .btn-container .lightbulb_off {
+        width: 30px;
+        height: 30px;
+        margin: 15px 10px;
+      }
+      #gc2021 .btn-container .lightbulb_on {
+        margin: 10px;
+      }
+      #gc2021 .btn {
+        margin-top: 15px;
+        width: 80%;
+        line-height: 4.5rem;
+      }
+      #gc2021 .nav {
+        width: 22%;
+      }
+      #gc2021 .nav-item {
+        padding: 15px 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript">
+  // Youtube API
+  let tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  let firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+  let player, iframe;
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+      width: '500',
+      height: '300',
+      videoId: 'yTdpUfZVMsE',
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    iframe = document.querySelector('#player');
+  }
+
+  function onPlayerStateChange(event) {
+    let onFullscreen = document.fullscreen || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    if ( !onFullscreen ) {
+      if ( event.data === 1 ) {
+        let requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+        if ( requestFullScreen ) {
+          requestFullScreen.bind(iframe)();
+        }
+      }
+    } else {
+      if ( event.data === 0 || event.data === 2 ) {
+        if ( document.exitFullscreen ) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+  }
+
+  document.onreadystatechange = function () {
+    if ( document.readyState === 'interactive' ) {
+      /* Javascript start */
+      let goodCause = document.getElementById('gc2021');
+      /*
+      ** Functions
+      */
+      // 點亮進站 mask
+      function lightsOn() {
+        let lightOns = goodCause.querySelectorAll('.light-on'),
+            lightOffs = goodCause.querySelectorAll('.light-off'),
+            mask = goodCause.querySelector('.mask');
+        lightOns.forEach(lightOn => lightOn.style.opacity = 1);
+        lightOffs.forEach(lightOff => lightOff.style.opacity = 0);
+        setTimeout(() => {
+          mask.style.opacity = 0;
+        }, 3000)
+        setTimeout(() => {
+          mask.style.display = 'none';
+          window.scrollTo({ top: 0 });
+          setBodyScrollable(true);
+        }, 3500)
+      }
+      // 是否限制捲動
+      function setBodyScrollable(scrollable) {
+        let canScroll = scrollable ? 'scroll' : 'hidden';
+        document.body.style.overflow = canScroll;
+      }
+      // 偵測是否為行動裝置
+      function setMobileMask() {
+        let mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+            mask = goodCause.querySelector('.mask'),
+            rwdHides = mask.querySelectorAll('.rwdHide'),
+            rwdShows = mask.querySelectorAll('.rwdShow'),
+            cWidth = window.innerWidth;
+        if ( mobile || cWidth <= 768 ) {
+          rwdHides.forEach(rwdHide => rwdHide.style.display = 'none');
+          rwdShows.forEach(rwdShow => rwdShow.style.display = 'block');
+        } else {
+          rwdHides.forEach(rwdHide => rwdHide.style.display = 'block');
+          rwdShows.forEach(rwdShow => rwdShow.style.display = 'none');
+        }
+      }
+      // Mask
+      goodCause.querySelector('.mask').addEventListener('click', lightsOn);
+      setBodyScrollable(false);
+      setMobileMask();
+    } else if ( document.readyState === 'complete' ) {
+      /* Javascript start */
+      let goodCause = document.getElementById('gc2021');
+      /*
+      ** Functions
+      */
+      // Nav 點擊跳至區塊
+      function navClick(e) {
+        let section_id = e.target.getAttribute('data-name'),
+            top = goodCause.querySelector(`#${section_id}`).offsetTop - 10;
+        window.scrollTo({
+          top: top,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
+      // 捲動時偵測現在在哪個 Section
+      function activeNavDetector() {
+        let section_1_bottom = goodCause.querySelector('#section-1').getBoundingClientRect().bottom,
+            section_1_height = goodCause.querySelector('#section-1').offsetHeight,
+            section_2_bottom = goodCause.querySelector('#section-2').getBoundingClientRect().bottom,
+            section_2_height = goodCause.querySelector('#section-2').offsetHeight;
+        let activeSection = 0;
+        let navItems = goodCause.querySelector('.nav').querySelectorAll('.nav-item');
+        if ( section_1_bottom > (section_1_height * 0.4) ) {
+          activeSection = 0;
+        } else if ( section_1_bottom <= (section_1_height * 0.4) && section_2_bottom > (section_2_height * 0.4) ) {
+          activeSection = 1;
+        } else {
+          activeSection = 2;
+        }
+        navItems.forEach((navItem, i) => {
+          if ( i === activeSection ) {
+            navItem.className = 'nav-item nav-item--active';
+          } else {
+            navItem.className = 'nav-item';
+          }
+        })
+      }
+      // 進度條
+      function setProgressBar(progress) {
+        let bar = goodCause.querySelector('.progressBar-status'),
+            progressBarText = goodCause.querySelector('.progressBar-text'),
+            lightBulbsContainer = goodCause.querySelector('.lightbulbs-container');
+        bar.style.width = progress + '%';
+        progressBarText.innerText = '已募集' + progress + '%';
+        for ( let i = 0; i < 12; i ++ ) {
+          let p = Math.round(progress/10);
+          let child = document.createElement('div');
+          if ( (i+1) <= p ) {
+            child.className = 'lightbulb_on';
+          } else {
+            child.className = 'lightbulb_off';
+          }
+          lightBulbsContainer.appendChild(child);
+        }
+      }
+      // 隱藏進度條
+      function hideProgressBar() {
+        goodCause.querySelector('.progressBar-container').remove();
+        let btns = goodCause.querySelectorAll('.btn');
+        btns.forEach((btn, i) => {
+          if ( i === 0 ) {
+            createBulbs(i);
+            btn.addEventListener('mouseenter', () => lightBulbsChange(i, 1));
+            btn.addEventListener('mouseleave', () => lightBulbsChange(i, 0));
+            btn.addEventListener('touchstart', () => lightBulbsChange(i, 1));
+          }
+        });
+      }
+      // 跳至外連網站
+      function goSite() {
+        fbq('track', 'CSR_Conv');
+        window.open('https://bit.ly/3pHijxC', '_blank').focus();
+      }
+      // Create lightbulbs
+      function createBulbs(index) {
+        let cWidth = window.innerWidth;
+        let btnContainers = goodCause.querySelectorAll('.btn-container'),
+            btn = btnContainers[index].querySelector('.btn');
+        if ( cWidth > 768 ) {
+          for ( let i = 0; i < 3; i ++ ) {
+            let bulb = document.createElement('div');
+            bulb.className = 'lightbulb lightbulb_off';
+            btnContainers[index].insertBefore(bulb, btn);
+          }
+          for ( let i = 0; i < 3; i ++ ) {
+            let bulb = document.createElement('div');
+            bulb.className = 'lightbulb lightbulb_off';
+            btnContainers[index].appendChild(bulb);
+          }
+        } else {
+          for ( let i = 0; i < 3; i ++ ) {
+            let bulb = document.createElement('div');
+            bulb.className = 'lightbulb lightbulb_off';
+            btnContainers[index].insertBefore(bulb, btn);
+          }
+        }
+      }
+      // Lightbulbs change
+      function lightBulbsChange(index, opacity) {
+        let btnContainers = goodCause.querySelectorAll('.btn-container'),
+            bulbs = btnContainers[index].querySelectorAll('.lightbulb');
+        bulbs.forEach(bulb => {
+          if ( opacity === 0 ) {
+            bulb.className = 'lightbulb lightbulb_off';
+          } else {
+            bulb.className = 'lightbulb lightbulb_on';
+          }
+        })
+      }
+      /*
+      ** Event Listeners
+      */
+      // Nav
+      let navItems = goodCause.querySelectorAll('.nav-item');
+      navItems.forEach(navItem => navItem.addEventListener('click', navClick));
+      window.onscroll = activeNavDetector;
+      // 按鈕
+      let btns = goodCause.querySelectorAll('.btn');
+      btns.forEach((btn, i) => {
+        btn.addEventListener('click', goSite);
+        if ( i !== 0 ) {
+          createBulbs(i);
+          btn.addEventListener('mouseenter', () => lightBulbsChange(i, 1));
+          btn.addEventListener('mouseleave', () => lightBulbsChange(i, 0));
+          btn.addEventListener('touchstart', () => lightBulbsChange(i, 1));
+          btn.addEventListener('touchend', () => lightBulbsChange(i, 0));
+        }
+      });
+      goodCause.addEventListener('touchend', () => {
+        lightBulbsChange(0, 0);
+        lightBulbsChange(1, 0);
+      })
+      // 進度條，填入百分比即可
+      setProgressBar(30);
+      hideProgressBar();
+
+      /* Javascript end */
+    }
+  };
+  </script>
+
+  <div id="gc2021">
+    <!-- Mask -->
+    <section class="mask">
+      <img class="light-on mask-img rwdHide"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635345949_602.png" />
+      <img class="light-off mask-img rwdHide"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635345978_479.png" />
+
+      <img class="light-on mask-img rwdShow"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635564759_299.png" />
+      <img class="light-off mask-img rwdShow"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635564774_320.png" />
+    </section>
+
+    <!-- kv -->
+    <section class="kv">
+      <img class="img rwdHide"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635430523_33.png" />
+      <img class="img rwdShow"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635430600_96.png" />
+    </section>
+
+    <!-- 點亮偏鄉計畫 -->
+    <section id="section-1">
+      <img class="img rwdHide"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635564673_574.png" />
+      <img class="img rwdShow"
+          src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635564733_264.png" />
+
+      <!-- 進度條 -->
+      <div class="donate-container">
+        <div class="progressBar-container">
+          <div class="lightbulbs-container"></div>
+          <div class="progressBar">
+            <div class="progressBar-status"></div>
+          </div>
+          <p class="progressBar-text"></p>
+        </div>
+        <div class="btn-container">
+          <div class="btn">立即捐款</div>
+        </div>
+      </div>
+    </section>
+          
+    <!-- 點亮我的家 -->
+    <section id="section-2">
+      <img class="img img-bg rwdHide"
+            src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635430690_401.png" />
+      <img class="img img-bg rwdShow"
+            src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635572740_461.png" />
+      <!-- 影片 -->
+      <div class="video-container">
+        <div id="player"></div>
+        <img class="video-text rwdHide"
+            src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635430711_266.png"/>
+      </div>
+      <img class="img rwdHide"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635565426_335.png" />
+      <img class="img rwdShow"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635573166_12.png" />
+    </section>
+
+    <!-- 捐款募集 -->
+    <section id="section-3">
+      <img class="img rwdHide"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635690358_114.png" />
+      <img class="img rwdShow"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635690626_841.png" />
+      <div class="btn2-container">
+        <div class="btn-container">
+          <div class="btn">立即捐款</div>
+        </div>
+      </div>
+    </section>
+   
+    <!-- NAV -->
+    <div class="nav">
+      <div data-name="section-1" class="nav-item nav-item--active">
+        <p data-name="section-1">點亮偏鄉計畫</p>
+        <img data-name="section-1" class="nav-lightbulb-on"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635345995_231.png" />
+      </div>
+      <div data-name="section-2" class="nav-item">
+        <p data-name="section-2">點亮我的家</p>
+        <img data-name="section-2" class="nav-lightbulb-on"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635345995_231.png" />
+      </div>
+      <div data-name="section-3" class="nav-item">
+        <p data-name="section-3">捐款募集</p>
+        <img data-name="section-3" class="nav-lightbulb-on"
+              src="https://admin-tw.ikea.com.tw/dairyfarm/tw/uploader/image/1635345995_231.png" />
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
